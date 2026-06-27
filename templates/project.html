@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Disease Prediction</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+<div class="logo">
+    <ul>
+        <li><a href="/">MediPredict</a></li>
+   </ul>
+</div>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/project" class="active">Prediction</a></li>
+
+<li><a href="/about">About</a></li>
+
+<li><a href="/history">History</a></li>
+
+<li><a href="/contact">Contact</a></li>
+
+</ul>
+
+</nav>
+
+<!-- ================= HEADER ================= -->
+
+<section class="hero" style="padding:60px 10%;">
+
+<div class="hero-text">
+
+<h1>Disease Prediction</h1>
+
+<p>
+
+Give your information below and click the Predict button.
+Our Machine Learning model will analyze and predict the most probable disease.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- ================= FORM ================= -->
+
+<div class="form-container">
+
+    <h2>Enter Patient Details</h2>
+
+    <form action="{{ url_for('predict') }}" method="POST">
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" name="age" placeholder="Enter Age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Gender</label>
+                <select name="gender" required>
+                    {% for gender in Genders %}
+                    <option value="{{ gender }}">{{ gender }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>BMI</label>
+                <input type="number" step="0.1" name="bmi" placeholder="Example: 24.5" required>
+            </div>
+
+            <div class="form-group">
+                <label>Blood Pressure</label>
+                <input type="number" name="bloodpressure" placeholder="Example: 120" required>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Glucose Level</label>
+                <input type="number" name="glucoselevel" placeholder="Example: 95" required>
+            </div>
+
+            <div class="form-group">
+                <label>Cholesterol</label>
+                <input type="number" name="cholesterol" placeholder="Example: 180" required>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Heart Rate</label>
+                <input type="number" name="heartrate" placeholder="Example: 72" required>
+            </div>
+
+            <div class="form-group">
+                <label>Smoking</label>
+                <select name="smoking" required>
+                    {% for smoke in Smokings %}
+                    <option value="{{ smoke }}">{{ smoke }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+                <label>Alcohol</label>
+                <select name="alcohol" required>
+                    {% for alcohol in Alcohols %}
+                    <option value="{{ alcohol }}">{{ alcohol }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Physical Activity</label>
+                <select name="physicalactivity" required>
+                    {% for activity in PhysicalActivities %}
+                    <option value="{{ activity }}">{{ activity }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group full-width">
+                <label>Family History</label>
+                <select name="familyhistory" required>
+                    {% for family in FamilyHistories %}
+                    <option value="{{ family }}">{{ family }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+        </div>
+
+        <button type="submit" class="predict-btn">
+            Predict Disease
+        </button>
+
+    </form>
+
+</div>
+
+<!-- ================= RESULT ================= -->
+
+{% if prediction %}
+
+<div class="result">
+
+    <h2>Prediction Result</h2>
+
+    <h1>{{ prediction }}</h1>
+
+</div>
+
+{% endif %}
+
+
+
+<!-- ================= INFO ================= -->
+
+<section>
+
+<h2>Why Use MediPredict?</h2>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Fast Prediction</h3>
+
+<p>
+
+Receive predictions in just a few seconds.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Machine Learning</h3>
+
+<p>
+
+Powered by trained Machine Learning models.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Easy Interface</h3>
+
+<p>
+
+Simple and user-friendly design.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Privacy</h3>
+
+<p>
+
+Your health information stays private.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-container">
+
+<div>
+
+<h2>MediPredict</h2>
+
+<p>
+
+Helping users understand possible diseases using Machine Learning technology.
+
+</p>
+
+</div>
+
+<div>
+
+<h3>Quick Links</h3>
+
+<a href="/">Home</a>
+
+<a href="/project">Prediction</a>
+
+<a href="/about">About</a>
+
+<a href="/history">History</a>
+
+<a href="/contact">Contact</a>
+
+</div>
+
+<div>
+
+<h3>Contact</h3>
+
+<p>Email : support@medipredict.com</p>
+
+<p>Phone : +91 9216480150</p>
+
+<p>India</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="copy">
+
+© 2026 MediPredict | All Rights Reserved
+
+</p>
+
+</footer>
+
+</body>
+</html>
